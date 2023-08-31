@@ -1,0 +1,12 @@
+[sources.docker]
+type = "docker_logs"
+exclude_containers = ["vector_agent"]
+
+[sources.metrics]
+type = "host_metrics"
+scrape_interval_secs = 60
+
+[sinks.emit_all]
+inputs = ["docker", "metrics"]
+type = "console"
+encoding.codec = "json"
