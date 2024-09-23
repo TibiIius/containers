@@ -24,13 +24,9 @@ jobs:
           - "vector-agent"
         include:
           - image: "nextcloud"
-            tag:
-              - "27"
-              - "latest"
+            tag: "27"
           - image: "vector-agent"
-            tag:
-              - "0.41.X-alpine"
-              - "latest-alpine"
+            tag: "0.41.X-alpine"
     env:
       IMAGE_NAME: ${{ matrix.image }}
       IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
