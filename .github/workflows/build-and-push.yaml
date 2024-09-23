@@ -22,11 +22,11 @@ jobs:
         image:
           - "nextcloud"
           - "vector-agent"
-        tag:
-          - "latest"
         include:
           - image: "nextcloud"
             tag: "27"
+          - image: "nextcloud"
+            tag: "latest"
           - image: "vector-agent"
             tag: "0.41.X-alpine"
           - image: "vector-agent"
