@@ -22,11 +22,15 @@ jobs:
         image:
           - "nextcloud"
           - "vector-agent"
+        tag:
+          - "latest"
         include:
           - image: "nextcloud"
             tag: "27"
           - image: "vector-agent"
             tag: "0.41.X-alpine"
+          - image: "vector-agent"
+            tag: "latest-alpine"
     env:
       IMAGE_NAME: ${{ matrix.image }}
       IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
