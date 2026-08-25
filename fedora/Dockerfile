@@ -1,4 +1,4 @@
-FROM quay.io/fedora/fedora-toolbox:44
+FROM quay.io/fedora/fedora-toolbox:46
 
 COPY --from=common ./devcontainers  /tmp/common
 
