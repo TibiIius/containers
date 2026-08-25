@@ -1,6 +1,6 @@
 FROM quay.io/toolbx/ubuntu-toolbox:26.04
 
-COPY ../common /tmp/common
+COPY --from=common ./devcontainers /tmp/common
 
 # Symlinks for host access
 RUN /tmp/common/symlinks.sh && \

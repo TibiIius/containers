@@ -1,6 +1,6 @@
 FROM quay.io/fedora/fedora-toolbox:44
 
-COPY ../common /tmp/common
+COPY --from=common ./devcontainers  /tmp/common
 
 # Symlinks for host access
 RUN /tmp/common/symlinks.sh && \
