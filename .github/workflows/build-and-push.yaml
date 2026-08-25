@@ -22,6 +22,8 @@ jobs:
         image:
           - "nextcloud"
           - "vector-agent"
+          - "fedora"
+          - "ubuntu"
 
     env:
       IMAGE_NAME: ${{ matrix.image }}
@@ -36,11 +38,26 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ github.token }}
 
+      - name: Extract base image tag
+        id: base-tag
+        run: |
+          BASE_IMAGE=$(grep "^FROM " ./${{ matrix.image }}/Dockerfile | awk '{print $2}' | tail -1)
+          TAG=$(echo "$BASE_IMAGE" | sed 's/.*://')
+          echo "base_tag=$TAG" >> $GITHUB_OUTPUT
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v6
         with:
           images: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ steps.base-tag.outputs.base_tag }}
+            type=raw,value=latest,enable={{is_default_branch}}
+          labels: |
+            org.opencontainers.image.title={{.Name}}
+            org.opencontainers.image.version={{.Version}}
+            org.opencontainers.image.revision={{.Version}}
+            org.opencontainers.image.source={{.Source}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
