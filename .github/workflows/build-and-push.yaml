@@ -54,10 +54,9 @@ jobs:
             type=raw,value=${{ steps.base-tag.outputs.base_tag }}
             type=raw,value=latest,enable={{is_default_branch}}
           labels: |
-            org.opencontainers.image.title={{.Name}}
-            org.opencontainers.image.version={{.Version}}
-            org.opencontainers.image.revision={{.Version}}
-            org.opencontainers.image.source={{.Source}}
+            org.opencontainers.image.title=${{ env.IMAGE_NAME }}
+            org.opencontainers.image.version=${{ steps.base-tag.outputs.base_tag }}
+            org.opencontainers.image.source=${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
