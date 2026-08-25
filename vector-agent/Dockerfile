@@ -1,4 +1,2 @@
-ARG DOCKER_TAG=${DOCKER_TAG:-latest-alpine}
-
-FROM docker.io/timberio/vector:${DOCKER_TAG}
+FROM docker.io/timberio/vector:0.57-distroless-static
 COPY vector.toml /etc/vector/vector.toml
