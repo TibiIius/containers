@@ -3,6 +3,9 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 0 * * *"
+  pull_request:
+    paths-ignore:
+      - "**/README.md"
   push:
     branches:
       - master
@@ -11,7 +14,7 @@ on:
 
 jobs:
   build-and-push:
-    name: Build all custom images and push them to GHCR
+    name: Build all custom images and push them to GHCR (push only on master)
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -64,6 +67,6 @@ jobs:
           context: ./${{ env.IMAGE_NAME }}
           build-contexts: |
             common=./common
-          push: true
+          push: ${{ github.ref == 'refs/heads/master' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
